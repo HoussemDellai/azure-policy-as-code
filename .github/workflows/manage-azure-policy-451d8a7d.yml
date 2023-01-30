@@ -1,0 +1,48 @@
+name: manage-azure-policy-451d8a7d
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'policies/Deploy_a_flow_log_resource_with_target_network_security_group_0db34a60-64f4-4bf6-bd44-f95c16cf34b9/**'
+#      - 'policies/Flow_logs_should_be_enabled_for_every_network_security_group_27960feb-a23c-4577-8d36-ef8b5f35e0be/**'
+#      - 'policies/Configure_network_security_groups_to_use_specific_workspace,_storage_account_and_flowlog_retention_policy_for_traffic_analytics_5e1cd26a-5090-4fdb-9d6a-84a90335e22d/**'
+#      - 'policies/Configure_diagnostic_settings_for_Azure_Network_Security_Groups_to_Log_Analytics_workspace_98a2e215-5382-489e-bd29-32e7190a39ba/**'
+#      - 'policies/All_network_ports_should_be_restricted_on_network_security_groups_associated_to_your_virtual_machine_9daedab3-fb2d-461e-b861-71790eead4f6/**'
+#      - 'policies/Flow_logs_should_be_configured_for_every_network_security_group_c251913d-7d24-4958-af87-478ed3b9ba41/**'
+#      - 'policies/Deploy_Diagnostic_Settings_for_Network_Security_Groups_c9c29499-c1d1-4195-99bd-2ec9e3a9dc89/**'
+#      - 'policies/Subnets_should_be_associated_with_a_Network_Security_Group_e71308d3-144b-4262-b144-efdc3cc90517/**'
+#      - 'policies/Configure_network_security_groups_to_enable_traffic_analytics_e920df7f-9a64-4066-9b58-52684c02a091/**'
+#      - .github/workflows/manage-azure-policy-451d8a7d.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_451d8a7d}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          policies/Deploy_a_flow_log_resource_with_target_network_security_group_0db34a60-64f4-4bf6-bd44-f95c16cf34b9/**
+          policies/Flow_logs_should_be_enabled_for_every_network_security_group_27960feb-a23c-4577-8d36-ef8b5f35e0be/**
+          policies/Configure_network_security_groups_to_use_specific_workspace,_storage_account_and_flowlog_retention_policy_for_traffic_analytics_5e1cd26a-5090-4fdb-9d6a-84a90335e22d/**
+          policies/Configure_diagnostic_settings_for_Azure_Network_Security_Groups_to_Log_Analytics_workspace_98a2e215-5382-489e-bd29-32e7190a39ba/**
+          policies/All_network_ports_should_be_restricted_on_network_security_groups_associated_to_your_virtual_machine_9daedab3-fb2d-461e-b861-71790eead4f6/**
+          policies/Flow_logs_should_be_configured_for_every_network_security_group_c251913d-7d24-4958-af87-478ed3b9ba41/**
+          policies/Deploy_Diagnostic_Settings_for_Network_Security_Groups_c9c29499-c1d1-4195-99bd-2ec9e3a9dc89/**
+          policies/Subnets_should_be_associated_with_a_Network_Security_Group_e71308d3-144b-4262-b144-efdc3cc90517/**
+          policies/Configure_network_security_groups_to_enable_traffic_analytics_e920df7f-9a64-4066-9b58-52684c02a091/**
